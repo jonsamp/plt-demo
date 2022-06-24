@@ -22,7 +22,7 @@ export function AnimatedLoading(props: Props) {
     ).start();
   }, []);
 
-  const RotateData = rotateValue.interpolate({
+  const rotate = rotateValue.interpolate({
     inputRange: [0, 1],
     outputRange: ['0deg', '360deg'],
   });
@@ -30,16 +30,15 @@ export function AnimatedLoading(props: Props) {
   return (
     <View>
       <Background size={size} />
-      <Animated.View
-        style={{
-          ...styles.progressContainer,
-          ...{
-            transform: [{ rotate: RotateData }],
-          },
-        }}
-      >
-        <Progress size={size} />
-      </Animated.View>
+      <View style={styles.progressContainer}>
+        <Animated.View
+          style={{
+            transform: [{ rotate }],
+          }}
+        >
+          <Progress size={size} />
+        </Animated.View>
+      </View>
     </View>
   );
 }
@@ -47,5 +46,6 @@ export function AnimatedLoading(props: Props) {
 const styles = StyleSheet.create({
   progressContainer: {
     position: 'absolute',
+    transform: [{ rotate: '-100deg' }],
   },
 });
